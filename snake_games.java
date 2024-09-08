@@ -20,7 +20,7 @@ class GamePanel extends JPanel implements ActionListener{
     
     final int SCREEN_HEIGHT = 600;
     final int SCREEN_WIDTH = 600;
-    final int DELAY = 85;
+    int DELAY = 85;
     final int UNIT_SIZE = 25;
     final int GAME_UNITS = (SCREEN_HEIGHT*SCREEN_WIDTH)/UNIT_SIZE;
     int x[] = new int[GAME_UNITS];
@@ -142,15 +142,31 @@ class GamePanel extends JPanel implements ActionListener{
     }
 
     public void gameOver(Graphics g) {
-        String str = "Game Over";
+        String gameOver = "Game Over";
         g.setColor(Color.GREEN);
         g.setFont(new Font("Cascadia code", Font.BOLD, 40));
-        g.drawString(str, (SCREEN_WIDTH-(str.length()*20))/2, SCREEN_HEIGHT/2);
+        g.drawString(gameOver, (SCREEN_WIDTH-(gameOver.length()*22))/2, SCREEN_HEIGHT/2);
 
-        String str2 = "Score: ";
+        String score = "Score: ";
         g.setColor(Color.GREEN);
         g.setFont(new Font("Cascadia code", Font.BOLD, 40));
-        g.drawString(str2+apples, (SCREEN_WIDTH-(str.length()*20))/2, (SCREEN_HEIGHT/2)+60);
+        g.drawString(score+apples, (SCREEN_WIDTH-(score.length()*22))/2, (SCREEN_HEIGHT/2)+60);
+
+        String playAgain = "Press 'ENTER' to play again";
+        g.setColor(Color.BLUE);
+        g.setFont(new Font("Cascadia code", Font.BOLD, 20));
+        g.drawString(playAgain, (SCREEN_WIDTH-(playAgain.length()*12))/2, (SCREEN_HEIGHT/2)+120);
+    }
+
+    public void playAgain() {
+        bodyPart = 6;
+        apples = 0;
+        direction = 'R';
+        DELAY = 85;
+        x = new int[GAME_UNITS];
+        y = new int[GAME_UNITS];
+        startGame();
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -186,6 +202,9 @@ class GamePanel extends JPanel implements ActionListener{
                     if(direction != 'L') {
                         direction = 'R';
                     }
+                    break;
+                case KeyEvent.VK_ENTER:
+                    playAgain();
                     break;
             }
         }
